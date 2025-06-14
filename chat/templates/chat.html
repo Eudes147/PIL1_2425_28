@@ -1,0 +1,42 @@
+
+
+{% load static %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messagerie</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/chat.css' %}">
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <span class="back-arrow">&#8592</span>
+            <div class="profile-pic"></div>
+            <span class="name">Nom</span>
+        </header>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message received">
+                <p>salut ! comment tu vas</p>
+            </div>
+            <div class="message sent">
+                <p>super bien merci ! et toi ?</p>
+            </div>
+            <div class="message received">
+                <p>bien aussi, je travaille sur un projet.</p>
+            </div>
+            <div class="message sent">
+                <p>Ah oui ? interressant ! c'est quoi ?</p>
+            </div>
+            <div class="message received">
+                <p>Pour l'instant c'est top secret</p>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="Votre message...">
+            <button id="sendMessageBtn">Envoyer</button>
+        </div>
+    </div>
+    <script src="{% static 'assets/js/java.js' %}"></script>
+</body>
+</html>
