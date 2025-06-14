@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - IFRI-Comotorage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
+
+  
+  <header class="bg-green-700 text-white p-4 justify-between items-center">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="assets/ressources/logo.jpeg.jpeg" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
+                <h1 class="text-2xl font-bold">IFRI-COMOTORAGE</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+                <a href="accueil.html" class="hover:underline">Accueil</a>
+                <a href="about.html" class="underline">À propos</a>
+                <a href="inscription.html" class="hover:underline">Inscription</a>
+                <a href="connexion.html" class="hover:underline">Connexion</a>
+            </nav>
+            <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="white">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+            <a href="accueil.html" class="block py-2 border-b border-white ">Accueil</a>
+            <a href="about.html" class="block py-2 border-b border-white ">À propos</a>
+            <a href="inscription.html" class="block py-2 border-b border-white ">Inscription</a>
+            <a href="connexion.html" class="block py-2 border-b border-white ">Connexion</a>
+        </div>
+    </header>
+
+  
+  <main class="flex-grow container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-green-700 mb-6">Contactez-nous</h2>
+    <p class="text-lg text-gray-700 mb-8">
+      Vous avez une question, une suggestion ou un problème ? N'hésitez pas à nous écrire via le formulaire ci-dessous.
+    </p>
+
+    <form action="#" method="POST" class="max-w-lg space-y-6">
+      <div>
+        <label for="nom" class="block text-sm font-medium">Nom</label>
+        <input type="text" id="nom" name="nom" required class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500" />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium">Adresse e-mail</label>
+        <input type="email" id="email" name="email" required class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500" />
+      </div>
+      <div>
+        <label for="message" class="block text-sm font-medium">Message</label>
+        <textarea id="message" name="message" rows="5" required class="w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+      </div>
+      <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800 transition">Envoyer</buttoon>
+    </form>
+    </main>
+
+    <footer class="bg-green-700 text-white py-6 mt-auto">
+        <div class="text-center text-sm">
+        &copy; 2025 IFRI-Comotorage. Tous droits réservés.
+        </div>
+    </footer>
+<script src="assets/js/accueil.js"></script>
+</body>
+</html>
