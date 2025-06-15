@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,14 +14,14 @@
   <header class="bg-green-700 text-white p-4 justify-between items-center">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center">
-                <img src="assets/ressources/logo.jpeg.jpeg" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
+                <img src="{% static 'logo.jpg' %}" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
                 <h1 class="text-2xl font-bold">IFRI-COMOTORAGE</h1>
             </div>
             <nav class="hidden md:flex space-x-6 text-sm font-semibold">
-                <a href="accueil.html" class="hover:underline">Accueil</a>
-                <a href="about.html" class="underline">À propos</a>
-                <a href="inscription.html" class="hover:underline">Inscription</a>
-                <a href="connexion.html" class="hover:underline">Connexion</a>
+                <a href="/accueil" class="hover:underline">Accueil</a>
+                <a href="/about" class="underline">À propos</a>
+                <a href="/inscription" class="hover:underline">Inscription</a>
+                <a href="/connexion" class="hover:underline">Connexion</a>
             </nav>
             <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="white">
@@ -29,10 +31,10 @@
             </button>
         </div>
         <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
-            <a href="accueil.html" class="block py-2 border-b border-white ">Accueil</a>
-            <a href="about.html" class="block py-2 border-b border-white ">À propos</a>
-            <a href="inscription.html" class="block py-2 border-b border-white ">Inscription</a>
-            <a href="connexion.html" class="block py-2 border-b border-white ">Connexion</a>
+            <a href="/accueil" class="block py-2 border-b border-white ">Accueil</a>
+            <a href="/about" class="block py-2 border-b border-white ">À propos</a>
+            <a href="/inscription" class="block py-2 border-b border-white ">Inscription</a>
+            <a href="/connexion" class="block py-2 border-b border-white ">Connexion</a>
         </div>
     </header>
 

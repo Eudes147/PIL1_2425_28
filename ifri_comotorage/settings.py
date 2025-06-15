@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'ifri_comotorage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ifri_comotorage',
-        'USER': 'kenokxno',
-        'PASSWORD': 'Hamelinparis-2007',
+        'NAME': 'ifri_comotorage2',
+        'USER': 'root',
+        'PASSWORD': '1_Br1ng_The_Pa1n_L1ke',
         'HOST':'localhost',
         'PORT':'3306',
     }

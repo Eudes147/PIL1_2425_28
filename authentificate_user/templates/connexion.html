@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,16 +13,16 @@
   <!-- Header -->
     <header class="bg-green-700 text-white p-4 flex justify-between items-center">
         <div class="flex items-center">
-             {% load static %}
-             <img src="{% static 'authentificate_user/static/logo.jpeg.jpeg.jpg' %}" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
+             
+             <img src="{% static 'logo.jpg' %}" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
             <h1 class="text-xl font-bold">IFRI-COMOTORAGE</h1>
         </div>
         <div class="flex space-x-4">
             <div class="space-x-2">
-                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='{% url 'inscription' %}'">Inscription</button>
+                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='/inscription'">Inscription</button>
             </div>
             <div class="space-x-2">
-                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='{% url 'accueil' %}'">ACCUEIL</button>
+                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='/accueil'">ACCUEIL</button>
             </div>
         </div>
   </header>
@@ -63,8 +64,8 @@
     <footer class="bt-green-700 text-white text-center text-sm p-3">
         <p>2025 IFRI-COMOTORAGE - Tous droits réservés</p>
         <div class="mt-1">
-            <a href="#" class="underline mx-1">À propos</a> |
-            <a href="#" class="underline mx-1">Contacts</a> |
+            <a href="/about" class="underline mx-1">À propos</a> |
+            <a href="/contacts" class="underline mx-1">Contacts</a> |
             <a href="#" class="underline mx-1">Mentions légales</a>
         </div>
     </footer>

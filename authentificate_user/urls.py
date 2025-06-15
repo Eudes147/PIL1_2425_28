@@ -6,11 +6,12 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     
-    path('', views.inscription, name='inscription'),
-    path('accueil/', accueil, name='accueil'),
+    path('', views.accueil, name='accueil'),
+    path('accueil/', views.accueil, name='accueil'),
+    path('inscription/', views.inscription, name='inscription'),
     path('connexion/', ConnexionView.as_view(), name='connexion'),
-    path('about/', about, name='about'),
-    path('contact/', contact, name='contact'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name='password_reset'),
     path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
