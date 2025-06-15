@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 from django.contrib.auth.models import AbstractUser
+from .models import Profil
 
 class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField (
@@ -42,3 +43,9 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = UserCreationForm.Meta.fields + ("first_name","last_name","Email","Number","Role","password1","password2")
+
+
+class ProfilForm(forms.ModelForm):
+    class Meta:
+        model = Profil
+        fields = ['photo', 'depart_lat', 'depart_lng', 'heure_depart', 'heure_arrivee', 'conducteur', 'marque', 'modele', 'places']

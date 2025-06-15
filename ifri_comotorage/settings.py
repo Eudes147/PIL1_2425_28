@@ -140,3 +140,6 @@ EMAIL_HOST_PASSWORD = 'Ifri1234'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 AUTH_USER_MODEL = 'authentificate_user.CustomUser'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
