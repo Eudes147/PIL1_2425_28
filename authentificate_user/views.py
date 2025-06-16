@@ -1,25 +1,44 @@
 from django.shortcuts import render,redirect 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import authenticate,login 
 from django.contrib.auth.views import LoginView
 from .forms import ProfilForm, UtilisateurCreationForm
-from django.contrib import messages
+from .forms import ConnexionForm
 from django.contrib.auth.decorators import login_required
 from .models import Profil
 from authentificate_user.forms import Contact
 from django.core.mail import send_mail
+from django.contrib.auth import login
+
 
 def inscription(request):
     if request.method == 'POST':
         form = UtilisateurCreationForm(request.POST)
         if form.is_valid():
-            Utilisateur=form.save()
+            Utilisateur =form.save()
+            login(request, Utilisateur)
             return redirect('profil')  
     else:
         form = UtilisateurCreationForm()
-    return render(request, 'inscription.html', {'form': form})
-
-def connexion():
     return render(request, 'profil.html', {'form': form})
+
+def connexion(request):
+    if request.method == 'POST':
+        message = ""
+        form = ConnexionForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('accueil_secondaire') 
+   
+            else:
+                message = "Nom d'utilisateur ou mot de passe incorrect.."
+    else:
+        form = ConnexionForm()
+        message = "Formulaire invalide "
+    return render(request, 'connexion.html', {'form': form, 'message': message})
 
 
 def accueil(request):

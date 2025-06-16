@@ -120,7 +120,9 @@
         </div>
       </div>
 
-      <button type="submit" class="bg-green-700 text-white px-6 py-3 rounded hover: bg-green-800 transition">enregistrer le profil</button>
+      <form action="{% url 'accueil_secondaire' %}">
+        <button type="submit" class="btn btn-success">Enrégistrer le profil</button>
+     </form>
     </form>
   </main>
 

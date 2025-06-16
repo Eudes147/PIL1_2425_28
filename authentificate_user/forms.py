@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
 from authentificate_user.models import Utilisateur
 from .models import Profil
+from django import forms
 
 class UtilisateurCreationForm(UserCreationForm):
     # nom = forms.CharField(max_length=50)
@@ -32,7 +33,7 @@ class UtilisateurCreationForm(UserCreationForm):
 class ProfilForm(forms.ModelForm):
     class Meta:
         model = Profil
-        fields = ['photo', 'depart_lat', 'depart_lng', 'heure_depart', 'heure_arrivee', 'conducteur', 'marque', 'modele', 'places']
+        fields = ['nom','prénom','photo', 'latitude', 'longitude', 'heure_depart', 'heure_arrivee', 'conducteur', 'marque', 'model', 'places']
 
 class Contact(forms.Form):
    name = forms.CharField(required=False, widget=forms.TextInput(attrs={
@@ -44,3 +45,11 @@ class Contact(forms.Form):
    message = forms.CharField(max_length=1000, widget=forms.TextInput(attrs={
             'class': 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'
         }))
+
+
+
+
+
+class ConnexionForm(forms.Form):
+    username = forms.CharField(label="Nom d'utilisateur")
+    password = forms.CharField(widget=forms.PasswordInput, label="Mot de passe")
