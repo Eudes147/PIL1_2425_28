@@ -17,8 +17,3 @@ class SomeForm(forms.ModelForm):
             "departTime":"",
             "endTime":""
         }
-    def cleanTask(self):
-        deadline = self.cleaned_data["deadline"]
-        if deadline < timezone.now().date():
-            raise forms.ValidationError("Veuillez choisir une date future")
-        return deadline
