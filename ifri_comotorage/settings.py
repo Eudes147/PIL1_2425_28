@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'authentificate_user',
     'chat',
-    'matching',
-    
-    
+    'matching', 
 ]
 
 MIDDLEWARE = [
@@ -80,9 +78,9 @@ WSGI_APPLICATION = 'ifri_comotorage.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ifri_comotorage2',
+        'NAME': 'ifricomotorage',
         'USER': 'root',
-        'PASSWORD': 'Hamelinparis-2007',
+        'PASSWORD': '',
         'HOST':'localhost',
         'PORT':'3306',
     }
