@@ -82,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ifri_comotorage2',
         'USER': 'root',
-        'PASSWORD': '1_Br1ng_The_Pa1n_L1ke',
+        'PASSWORD': 'Hamelinparis-2007',
         'HOST':'localhost',
         'PORT':'3306',
     }
@@ -131,12 +131,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ifricomotorage@gmail.com'         
-EMAIL_HOST_PASSWORD = 'Ifri1234'   
+EMAIL_HOST_PASSWORD = 'hdad pcsm yjfj vdvd'  
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 AUTH_USER_MODEL = 'authentificate_user.Utilisateur'
