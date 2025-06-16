@@ -33,7 +33,7 @@ def choicePosition(request,user_id):
         data=response.json()
         nameDep = data.get('display_name')
 
-        latArrivee,lngArrivee = int(latArrivee),int(lngArrivee)
+        latArrivee,lngArrivee = float(latArrivee),float(lngArrivee)
         url = "https://nomination.openstreetmap.org/reverse?lat={latArrivee}&lon={lngArrivee}&format=json"
         response = requests.get(url)
         data=response.json()
@@ -49,8 +49,10 @@ def choicePosition(request,user_id):
         user.endlng = lngArrivee
 
         if user.driver.conducteur:
-            return render(request,"créé_une_offre_de_covoiturage.html",context={"nameDepart":nameDep,"nameArrivee":nameArr})
-        return render(request,"demande_de_covoiturage.html",context={"nameDepart":nameDep,"nameArrivee":nameArr})
+            return render(request,"créé_une_offre_de_covoiturage.html",context={"latDep":latDepart,"lngDep":lngDepart,"latArr":latArrivee,"lngArr":lngArrivee,
+                "nameDepart":nameDep,"nameArrivee":nameArr})
+        return render(request,"demande_de_covoiturage.html",context={"latDep":latDepart,"lngDep":lngDepart,"latArr":latArrivee,"lngArr":lngArrivee,
+            "nameDepart":nameDep,"nameArrivee":nameArr})
 
     return render(request,"choice_trajet.html")
 
