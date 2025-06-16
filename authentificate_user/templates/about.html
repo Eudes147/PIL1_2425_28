@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>À propos - IFRI-Comotorage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-gray-800 flex flex-col min-h-screen">
+
+  <!-- Header -->
+    <header class="bg-green-700 text-white p-4 justify-between items-center">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'logo.jpg' %}" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
+                <h1 class="text-2xl font-bold">IFRI-COMOTORAGE</h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+                <a href="/accueil" class="hover:underline">Accueil</a>
+                <a href="/contact" class="hover:underline">Contact</a>
+                <a href="/inscription" class="hover:underline">Inscription</a>
+                <a href="/connexion" class="hover:underline">Connexion</a>
+            </nav>
+            <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="white">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+        </div>
+        
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+            <a href="/accueil" class="block py-2 border-b border-white ">Accueil</a>
+            <a href="/contact" class="block py-2 border-b border-white ">Contact</a>
+            <a href="/inscription" class="block py-2 border-b border-white ">Inscription</a>
+            <a href="/connexion" class="block py-2 border-b border-white ">Connexion</a>
+        </div>
+    </header>
+
+  <!-- Contenu principal -->
+  <main class="flex-grow container mx-auto px-4 py-12">
+    <h2 class="text-3xl font-bold text-green-700 mb-6">À propos de IFRI-Comotorage</h2>
+    <p class="text-lg leading-relaxed text-gray-700">
+      IFRI-Comotorage est une initiative estudiantine visant à simplifier les trajets quotidiens des étudiants de l'IFRI. 
+      Grâce à notre plateforme, les étudiants peuvent proposer, rechercher et organiser des covoiturages en toute sécurité et convivialité.
+    </p>
+    <p class="mt-4 text-lg text-gray-700">
+      Notre mission est de :
+      <ul class="list-disc list-inside mt-3 text-gray-700">
+        <li>Réduire les frais de transport</li>
+        <li>Réduire le retard des étudiants </li>
+        <li>Favoriser l'entraide entre étudiants</li>
+      </ul>
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-green-700 text-white py-6 mt-auto">
+    <div class="text-center text-sm">
+      &copy; 2025 IFRI-Comotorage. Tous droits réservés.
+    </div>
+  </footer>
+<script src="assets/js/accueil.js"></script>
+</body>
+</html>
