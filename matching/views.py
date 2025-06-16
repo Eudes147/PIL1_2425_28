@@ -28,13 +28,13 @@ def choicePosition(request,user_id):
         lngArrivee = request.POST.get("end_lng")
 
         latDepart,lngDepart = int(latDepart),int(lngDepart)
-        url = "https://nomination.openstreetmap.org/reverse?lat={latDepart}&lon={lngDepart}&format=json"
+        url = "https://nominatim.openstreetmap.org/reverse?lat={latDepart}&lon={lngDepart}&format=json"
         response = requests.get(url)
         data=response.json()
         nameDep = data.get('display_name')
 
         latArrivee,lngArrivee = float(latArrivee),float(lngArrivee)
-        url = "https://nomination.openstreetmap.org/reverse?lat={latArrivee}&lon={lngArrivee}&format=json"
+        url = "https://nominatim.openstreetmap.org/reverse?lat={latArrivee}&lon={lngArrivee}&format=json"
         response = requests.get(url)
         data=response.json()
         nameArr = data.get('display_name')
