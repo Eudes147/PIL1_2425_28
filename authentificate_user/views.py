@@ -6,6 +6,8 @@ from .forms import ProfilForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Profil
+from authentificate_user.forms import Contact
+from django.core.mail import send_mail
 
 def inscription(request):
     if request.method == 'POST':
@@ -29,7 +31,19 @@ def about(request):
     return render(request, 'about.html')
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == 'POST':
+        form = Contact(request.POST)
+        if form.is_valid():
+            send_mail(
+                subject=f'Message from {form.cleaned_data["name"] or "anonyme"} via authentificate_user Contact form', 
+                message = form.cleaned_data['message'],
+                from_email=form.cleaned_data['email'],
+                recipient_list=['ifricomotorage@gmail.com'],
+            )
+        return redirect('accueil')
+    else:
+        form = Contact()
+    return render(request, 'contact.html', {'form':form})
 
 
 
