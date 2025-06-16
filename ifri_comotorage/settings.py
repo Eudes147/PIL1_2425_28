@@ -139,7 +139,7 @@ EMAIL_HOST_USER = 'ifricomotorage@gmail.com'
 EMAIL_HOST_PASSWORD = 'Ifri1234'   
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-AUTH_USER_MODEL = 'authentificate_user.CustomUser'
+AUTH_USER_MODEL = 'authentificate_user.Utilisateur'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

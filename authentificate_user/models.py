@@ -1,15 +1,20 @@
-from django.contrib.auth.models import AbstractUser
+
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 
-class CustomUser(AbstractUser):
-    nom = models.CharField(max_length=50)
-    prenom = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
-    telephone = models.CharField(max_length=15, unique=True)
-    Role = models.CharField(max_length=15) 
-    password = models.CharField(max_length=25)
+
+class Utilisateur(AbstractUser):
+    nom = models.fields.CharField(max_length=50)
+    prenom = models.fields.CharField(max_length=50)
+    email = models.fields.EmailField(unique=True)
+    telephone = models.fields.CharField(max_length=15, unique=True)
+    class role(models.TextChoices):
+        conducteur = 'conducteur'
+        passager = 'passager'
+    Role = models.fields.CharField(choices=role.choices,max_length=12) 
     pass
+
 
 class Profil(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

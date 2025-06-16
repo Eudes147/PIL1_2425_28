@@ -1,49 +1,33 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User 
-from django.contrib.auth.models import AbstractUser
+from authentificate_user.models import Utilisateur
 from .models import Profil
 
-class CustomUserCreationForm(UserCreationForm):
-    first_name = forms.CharField (
-        label = "Prénom",max_length=30, required = True,
-    )
-    last_name= forms.CharField(
-        label="Nom",
-        max_length=30, required = True,
-    )
+class UtilisateurCreationForm(UserCreationForm):
+    # nom = forms.CharField(max_length=50)
+    # prenom = forms.CharField(max_length=50)
+    # email = forms.EmailField()
+    # telephone = forms.CharField(max_length=15)
+    # Role = forms.ChoiceField(choices=Utilisateur.role.choices)
 
-    Email=forms.EmailField(
-        label="Adress Email",
-        required = True,
-    )
-    Number = forms.CharField(
-       label="Numéro de téléphone",
-       max_length=15, required = True,
-   )
-    Role=forms.ChoiceField(
-        label="Rôle",
-        choices=[
-            ('conducteur', 'Conducteur'),
-            ('passager','Passager')
-        ],
-    )
+    class Meta:
+        model = Utilisateur
+        fields = ('username','nom', 'prenom', 'email', 'telephone', 'Role', 'password1', 'password2')
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'}),
+            'nom': forms.TextInput(attrs={'class': 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'}),
+            'prenom': forms.TextInput(attrs={'class': 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'}),
+            'email': forms.EmailInput(attrs={'class': 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'}),
+            'telephone': forms.TextInput(attrs={'class': 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'}),
+            'Role': forms.Select(attrs={'class': 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'}),
+        }
 
-    password1 = forms.CharField(
-        label = "password",
-        strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete':'new-password'}),
-    )
-    password2 =  forms.CharField(
-        label = "password confirmation",
-        strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete':'new-password'}),
-    )
-
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = UserCreationForm.Meta.fields + ("first_name","last_name","Email","Number","Role","password1","password2")
-
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        style = 'w-full border rounded px-3 py-2 mt-1 focus:outline-none focus:ring-2 focus:ring-green-500'
+        self.fields['password1'].widget.attrs.update({'class': style})
+        self.fields['password2'].widget.attrs.update({'class': style})
 
 class ProfilForm(forms.ModelForm):
     class Meta:
