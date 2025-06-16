@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'ifri_comotorage.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ifri_comotorage2',
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'ifri_comotorage2',
         'USER': 'root',
         'PASSWORD': 'Hamelinparis-2007',
         'HOST':'localhost',
