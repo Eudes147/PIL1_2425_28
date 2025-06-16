@@ -14,15 +14,15 @@
     <header class="bg-green-700 text-white p-4 justify-between items-center">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center">
-                <img src="../static/logo_ifri_comotorage.jpg" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
+                <img src="{% static 'matching/logo_ifri_comotorage.jpg' %}" alt="logo ifri comotorage" class="w-10 h-auto mr-3">
                 <h1 class="text-2xl font-bold">IFRI-COMOTORAGE</h1>
             </div>
             
             <nav class="hidden md:flex space-x-6 font-semibold">
-                <a href="/about" class="hover:underline">À propos</a>
-                <a href="/contact" class="hover:underline">Contact</a>
-                <a href="" class="hover:underline">Mon profil</a>
-                <a href="" class="hover:underline">Messagerie</a>
+                <a href="{% url 'about' %}" class="hover:underline">À propos</a>
+                <a href="{% url 'contact' %}" class="hover:underline">Contact</a>
+                <a href="{% url 'profil' %}" class="hover:underline">Mon profil</a>
+                <a href="{% url 'chat' %}" class="hover:underline">Messagerie</a>
             </nav>
 
             <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
@@ -34,10 +34,10 @@
         </div>
 
         <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
-            <a href="/about" class="block py-2 border-b border-white">À propos</a>
-            <a href="/contact" class="block py-2 border-b border-white">Contact</a>
-            <a href="" class="block py-2 border-b border-white">Mon profil</a>
-            <a href="" class="block py-2">Messagerie</a>
+            <a href="{% url 'about' %}" class="block py-2 border-b border-white">À propos</a>
+            <a href="{% url 'contact' %}" class="block py-2 border-b border-white">Contact</a>
+            <a href="{% url 'profil' %}" class="block py-2 border-b border-white">Mon profil</a>
+            <a href="{% url 'chat' %}" class="block py-2">Messagerie</a>
         </div>
     </header>
  <section class="bg-white py-20">
@@ -46,7 +46,7 @@
     <!-- Colonne image gauche -->
     <div class="md:w-1/2">
       <div class="h-full rounded-lg overflow-hidden shadow-md">
-        <img src="../static/logo_ifri_comotorage.jpg" alt="Illustration covoiturage"
+        <img src="{% static 'matching/logo_ifri_comotorage.jpg' %}" alt="Illustration covoiturage"
              class="w-full h-full object-cover object-center">
       </div>
     </div>
@@ -63,11 +63,11 @@
       </div>
 
       <div class="flex flex-col sm:flex-row sm:space-x-6 space-y-4 sm:space-y-0">
-        <a href="/proposer-trajet"
+        <a href="{% url 'offre' %}"
            class="bg-green-700 hover:bg-green-800 text-white font-semibold py-4 px-10 text-lg rounded-lg shadow-lg w-full sm:w-auto text-center transition-all duration-300">
           🚗 Faire une offre de covoiturage
         </a>
-        <a href="/rechercher-trajet"
+        <a href="{% url 'demande' %}"
            class="bg-green-700 hover:bg-green-800 text-white font-semibold py-4 px-10 text-lg rounded-lg shadow-lg w-full sm:w-auto text-center transition-all duration-300">
           🔍 Faire une demande de covoiturage
         </a>
@@ -83,9 +83,9 @@
     <div class="container mx-auto text-center">
       <p class="text-sm">&copy; 2025 Étudiants Covoiturage. Tous droits réservés.</p>
       <div class="mt-2">
-        <a href="/about" class="underline mx-2">À propos</a>
-        <a href="/contact" class="underline mx-2">Contact</a>
-        <a href="mentions-legales.html" class="underline mx-2">Mentions légales</a>
+        <a href="{% url 'about' %}" class="underline mx-2">À propos</a>
+        <a href="{% url 'contact' %}" class="underline mx-2">Contact</a>
+        <a href="" class="underline mx-2">Mentions légales</a>
       </div>
     </div>
   </footer>

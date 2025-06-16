@@ -58,6 +58,7 @@
             <h1 class="text-3xl font-bold text-[#1E8449] text-center mb-8">Publier une offre de covoiturage</h1>
 
             <form id="offer-form" action="{% url 'offre' %}" method="POST" class="space-y-6">
+                {% csrf_token %}
                 <div>
                     <label for="point-depart" class="block text-gray-700 text-lg font-medium mb-2">Point de départ :</label>
                     <input type="text" id="point-depart" name="point_depart" placeholder="Ex: Campus IFRI" required
