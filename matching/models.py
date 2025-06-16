@@ -4,8 +4,6 @@ from authentificate_user.models import Profil
 
 # Create your models here.
 class Offre(models.Model):
-    driver = models.ForeignKey(Profil,on_delete=models.CASCADE)
-    
     # Position de départ du conducteur (latitude, longitude).
     departlatitude = models.FloatField()
     departlongitude = models.FloatField()
@@ -22,8 +20,6 @@ class Offre(models.Model):
 
 
 class Demande(models.Model):
-    passenger = models.ForeignKey(Profil,on_delete=models.CASCADE)
-    
     # Position de départ du conducteur (latitude, longitude).
     departlatitude = models.CharField(max_length=200)
     departlongitude = models.CharField(max_length=200)
