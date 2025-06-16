@@ -1,17 +1,15 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>Choix du trajet</title>
-  <!-- <link rel="stylesheet" href="{% static 'style.css'%}"> -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="{% static 'matching/choice_trajet.css' %}">
 </head>
 <body>
-  <form method="POST" action="{% url 'takePosition' %}">
+  <form method="POST" action="{% url 'enregistrer_trajet' %}">
     <div id="map"></div>
-    {{ csrf_token }}
+
     <input type="hidden" id="start_lat" name="start_lat">
     <input type="hidden" id="start_lng" name="start_lng">
     <input type="hidden" id="end_lat" name="end_lat">

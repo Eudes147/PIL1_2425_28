@@ -1,10 +1,10 @@
 from django.db import models
-from django.utils import timezone
-from authentificate_user.models import Profil
+from django.shortcuts import timezone
 
 # Create your models here.
 class Offre(models.Model):
-    driver = models.ForeignKey(Profil,on_delete=models.CASCADE)
+    driver = models.ForeignKey(User,on_delete=models.CASCADE)
+    
     # Position de départ du conducteur (latitude, longitude).
     departlatitude = models.CharField(max_length=200)
     departlongitude = models.CharField(max_length=200)
@@ -17,11 +17,11 @@ class Offre(models.Model):
     departTime = models.TimeField(default=timezone.now)
 
     #Nombre de places disponibles
-    nbPLacesDispo = models.PositiveIntegerField(default=5)
+    nbPLacesDispo = models.PositiveIntergerField(default=driver.nbplaces)
 
 
 class Demande(models.Model):
-    passenger = models.ForeignKey(Profil,on_delete=models.CASCADE)
+    passenger = models.ForeignKey(User,on_delete=models.CASCADE)
     
     # Position de départ du conducteur (latitude, longitude).
     departlatitude = models.CharField(max_length=200)

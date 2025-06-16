@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche de correspondances - IFRI-Comotorage</title>
+    <!-- Chargement de Tailwind CSS via CDN (ressource externe) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chargement de la police Inter (ressource externe) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chargement de Font Awesome pour l'icône de chargement -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Lien vers votre fichier CSS personnalisé (à créer séparément) -->
+    <link rel="stylesheet" href="../static/page_d'attente_du_matching.css">
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- En-tête (Header) -->
+    <header class="bg-[#1E8449] text-white p-4 flex justify-between items-center shadow-md relative z-30">
+       <div class="flex items-center text-2xl font-bold z-40">
+         <img src="../static/logo_ifri_comotorage.jpg" alt="Logo IFRI-Comotorage" class="mr-2" width="50" height="50">
+         <span>IFRI-Comotorage</span>
+       </div>
+
+        <!-- Bouton du menu burger (visible sur mobile, caché sur desktop) -->
+        <button id="hamburger-button" class="md:hidden z-50 focus:outline-none">
+            <div class="hamburger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+
+        <!-- Navigation (pour mobile et desktop) -->
+        <nav id="mobile-menu" class="
+            hidden                                          /* Par défaut caché sur mobile */
+            fixed inset-0 bg-[#1E8449]                      /* Positionnement fixe, prend tout l'écran, couleur de fond */
+            flex flex-col items-center justify-center       /* Flexbox pour alignement vertical centré sur mobile */
+            transform -translate-x-full                     /* Commence hors écran à gauche */
+            transition-transform duration-300 ease-in-out   /* Animation de glissement */
+            z-40                                            /* Doit être au-dessus du contenu principal, mais en dessous du bouton burger */
+
+            md:flex md:relative md:flex-row                 /* Sur desktop: devient flex, relatif, et horizontal */
+            md:h-auto md:w-auto md:bg-transparent           /* Sur desktop: hauteur/largeur auto, fond transparent */
+            md:translate-x-0 md:z-auto                      /* Sur desktop: pas de translation, z-index auto */
+        ">
+            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">À propos</a>
+            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Contact</a>
+            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Mon Profil</a>
+            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Message</a>
+        </nav>
+    </header>
+    <!-- Zone de notification de succès/erreur -->
+    <div id="notification-message" class="hidden fixed top-4 left-1/2 -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 text-center font-semibold">
+    <!-- Le message sera inséré ici par JavaScript -->
+    </div>
+
+    <!-- Contenu principal (Main Content) -->
+    <main class="flex-grow container mx-auto px-4 py-8 md:py-12 flex items-center justify-center">
+        <div class="bg-white p-8 md:p-12 rounded-lg shadow-xl max-w-md mx-auto text-center">
+            <div class="text-gray-700 text-3xl font-bold mb-6">
+                <i class="fas fa-spinner fa-spin text-5xl text-[#1E8449] mb-4"></i>
+                <p>Recherche de correspondances en cours...</p>
+            </div>
+            <p class="text-gray-600 text-lg">Veuillez patienter quelques instants pendant que nous trouvons le covoiturage idéal pour vous.</p>
+        </div>
+    </main>
+
+    <!-- Pied de page (Footer) -->
+    <footer class="bg-[#1E8449] text-white p-4 text-center mt-auto shadow-inner">
+        <p>&copy; 2025 IFRI-Comotorage. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Le lien vers votre fichier JavaScript sera ajouté ici (à créer séparément) -->
+    <script src="../static/page_d'attente_du_matching.js"></script>
+</body>
+</html>
