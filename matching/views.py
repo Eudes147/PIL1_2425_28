@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from .models import Demande
-from .matching import find_nearDrivers 
 from django.shortcuts import render,redirect
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -9,7 +7,7 @@ import requests
 
 
 from .models import Demande,Offre
-from authentificate_user.models import Profil,Utilisateur
+from authentificate_user.models import Profil
 from .matching import match_passager_a_conducteur 
 
 #Create views here
