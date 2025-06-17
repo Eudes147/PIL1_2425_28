@@ -58,7 +58,7 @@ def profil_view(request):
             profil=form.save()
             profil.user = request.user
             profil.save()
-            return redirect('accueil')
+            return render(request,"matching/page_d'acceuil_secondaire.html",context={})
     else:
         form = ProfilForm(instance=profil)
     return render(request, 'profil.html', {'form': form, 'profil': profil})

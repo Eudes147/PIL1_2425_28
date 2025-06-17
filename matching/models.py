@@ -10,8 +10,8 @@ class Offre(models.Model):
     departlng = models.FloatField()
 
     # Position d'arrivée du conducteur (latitude, longitude).
-    arriveelatitude = models.FloatField()
-    arriveelongitude = models.FloatField()
+    arriveelat = models.FloatField()
+    arriveelng = models.FloatField()
 
     #Heure de départ
     departTime = models.TimeField(default=timezone.now)
@@ -24,12 +24,12 @@ class Demande(models.Model):
     passenger = models.ForeignKey(Profil,on_delete=models.CASCADE)
     
     # Position de départ du conducteur (latitude, longitude).
-    departlatitude = models.FloatField(max_length=200)
-    departlongitude = models.FloatField(max_length=200)
+    departlat = models.FloatField(max_length=200)
+    departlng= models.FloatField(max_length=200)
 
     # Position d'arrivée du conducteur (latitude, longitude).
-    arriveelatitude = models.FloatField(max_length=200)
-    arriveelongitude = models.FloatField(max_length=200)
+    arriveelat = models.FloatField(max_length=200)
+    arriveelng = models.FloatField(max_length=200)
 
     #Heure de départ
     departTime = models.TimeField(timezone.now)
