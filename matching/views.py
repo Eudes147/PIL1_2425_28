@@ -6,36 +6,72 @@ import requests
 
 
 from .models import Demande,Offre
+from authentificate_user.models import Profil,Utilisateur
 from .matching import match_passager_a_conducteur 
 
 #Create views here
-def waiting(request,user_id):
-    positionPassenger = request.session.get('positionPassenger')
-    
-    return render(request,"matching/page_d'attente_du_matching.html")
-def matchingPas_Drv(request,passenger_id):
-    passenger = Demande.objects.get(pk=passenger_id) #Passager en question.
-    drivers = Offre.objects.get(Offre.nbPlacesDispo !=0,departTime=passenger.departTime)
-    for driver in drivers:
-        if match_passager_a_conducteur(settings.API_KEY,(driver.departlng,driver.departlat),(driver.arriveelng,driver.arriveelat),(passenger.departlng,passenger.departlat),(passenger.arriveelng,passenger.arriveelat)):
-            return render(request,"matching/affichage_des_resultats.html",context={"driver":driver,"passenger":passenger})
 
-    return render(request,"matching/affichage_des_resultats.html",context={"driver":None,"passenger":passenger})
-def createOffre(request,driver_id):
-    if request.method == "POST":
-        pass
+def waiting(request,user_name):
+    passenger = request.session.get("positionPassenger")
+    driver = request.session.get("positionDriver")
 
-    return render(request,"matching/créé_une_offre_de_covoiturage.html")
+    if passenger:
+        profil = passenger.get("passenger")
+    else:
+        profil = driver.get("positionDriver")
+    return render(request,"matching/page_d'attente_du_matching.html",context={"profil":profil})
+
+
+def matchingPas_Drv(request,passenger_name):
+    demande = Demande.objects.get(passenger__user__nom = passenger_name) #Passager en question.
+    offres = Offre.objects.filter(Offre.nbPlacesDispo !=0,departTime=demande.departTime)
+    for offre in offres:
+        if match_passager_a_conducteur(settings.API_KEY,(offre.departlng,offre.departlat),(offre.arriveelng,offre.arriveelat),(demande.departlng,demande.departlat),(demande.arriveelng,demande.arriveelat)):
+            return render(request,"matching/affichage_des_resultats.html",context={"driverOffre":offre,"passengerDemande":demande})
+
+    return render(request,"matching/affichage_des_resultats.html",context={"driverOffre":None,"passengerDemande":demande})
+
+def createOffre(request,driver_name):
+    driver = Offre.objects.get(passenger__user__nom = driver_name)
+    positionDriver = request.session.get('positionDriver')
+    if request.method =="POST":
+        pointDepart = request.POST.get("point_depart_demande")
+        pointArrivee = request.POST.get("point_arrivee_demande")
+        departTime = request.POST.get("heure_depart_souhaitee")
+        places = request.POST.get("places_disponibles")
+
+        offre = Offre(driver=driver,
+                                         departlat=positionDriver.get("latDep"),
+                                         departlng=positionDriver.get("lngDep"),
+                                         arriveelat=positionDriver.get("latArr"),
+                                         arriveelng=positionDriver.get("lngArr"),
+                                         departTime=positionDriver.get('departTime'),
+                                         nbPLacesDispo=int(places))
+        
+        try:
+            offre.full_clean()
+        except ValidationError as errors:
+            positionDriver["erreurs"] = errors.message_dict
+            return render(request,"matching/demande_de_covoiturage.html",{"positionDriver":positionDriver})
+        else:
+            offre.save()
+
+            request.session["positionDriver"] = {"latDep":positionDriver.get("latDep"),"lngDep":positionDriver.get("lngDep"),"latArr":positionDriver.get("latArr"),"lngArr":positionDriver.get("lngArr"),
+                "nameDepart":positionDriver.get("nameDep"),"nameArrivee":positionDriver.get("nameArr"),"driver":driver}
+            return redirect("waiting")
+
+    return render(request,"matching/créé_une_offre_de_covoiturage.html",{"positionDriver":positionDriver,"driver":driver})
         
 
-def createDemande(request,passenger_id):
+def createDemande(request,passenger_name):
+    passenger = Profil.objects.get(user__nom=passenger_name)
     positionPassenger = request.session.get('positionPassenger')
     if request.method =="POST":
         pointDepart = request.POST.get("point_depart_demande")
         pointArrivee = request.POST.get("point_arrivee_demande")
         departTime = request.POST.get("heure_depart_souhaitee")
 
-        demande = Demande(passenger=Demande.objects.get(pk=passenger_id),
+        demande = Demande(passenger=passenger,
                                          departlat=positionPassenger.get("latDep"),
                                          departlng=positionPassenger.get("lngDep"),
                                          arriveelat=positionPassenger.get("latArr"),
@@ -51,13 +87,13 @@ def createDemande(request,passenger_id):
             demande.save()
 
             request.session["positionPassenger"] = {"latDep":positionPassenger.get("latDep"),"lngDep":positionPassenger.get("lngDep"),"latArr":positionPassenger.get("latArr"),"lngArr":positionPassenger.get("lngArr"),
-                "nameDepart":positionPassenger.get("nameDep"),"nameArrivee":positionPassenger.get("nameArr")}
+                "nameDepart":positionPassenger.get("nameDep"),"nameArrivee":positionPassenger.get("nameArr"),"passenger":passenger}
             return redirect("waiting")
 
 
-    return render(request,"matching/demande_de_covoiturage.html",{"positionPassenger":positionPassenger})
+    return render(request,"matching/demande_de_covoiturage.html",{"positionPassenger":positionPassenger,"passenger":passenger})
 
-def choicePosition(request,user_id):
+def choicePosition(request,user_name):
     if request.method=="POST":
         latDepart = request.POST.get("start_lat")
         lngDepart = request.POST.get("start_lng")
@@ -68,32 +104,38 @@ def choicePosition(request,user_id):
         url = "https://nominatim.openstreetmap.org/reverse?lat={latDepart}&lon={lngDepart}&format=json"
         response = requests.get(url)
         data=response.json()
-        nameDep = f"{data["address"].get("city")}, {data["address"].get("quarter")}"
+        nameDep = f"{data['address'].get('city')}, {data['address'].get('quarter')}"
+
 
         latArrivee,lngArrivee = float(latArrivee),float(lngArrivee)
         url = "https://nominatim.openstreetmap.org/reverse?lat={latArrivee}&lon={lngArrivee}&format=json"
         response = requests.get(url)
         data=response.json()
-        nameArr = f"{data["address"].get("city")}, {data["address"].get("quarter")}"
+        nameArr = f"{data['address'].get('city')}, {data['address'].get('quarter')}"
+        user = Profil.objects.get(user__nom = user_name)
 
-        if Offre.objects.get(driver__id=user_id):
-            user = Offre.objects.get(driver__id=user_id)
-        else:
-            user = Offre.objects.get(passenger__id=user_id)
-        user.departlat = latDepart
-        user.departlng = lngDepart
-        user.endlat = latArrivee
-        user.endlng = lngArrivee
-
-        if user.driver.conducteur:
+        if user.conducteur:
+            offre = Offre(driver=user)
+            offre.departlat = latDepart
+            offre.departlng = lngDepart
+            offre.arriveelat = latArrivee
+            offre.arriveelat = lngArrivee
+            offre.save()
             request.session["positionDriver"] = {"latDep":latDepart,"lngDep":lngDepart,"latArr":latArrivee,"lngArr":lngArrivee,
                 "nameDepart":nameDep,"nameArrivee":nameArr}
             return redirect('offre')
+        
+        demande = Demande(passenger=user)
+        demande.departlat = latDepart
+        demande.departlng = lngDepart
+        demande.arriveelat = latArrivee
+        demande.arriveelat = lngArrivee
+        demande.save()
         request.session["positionPassenger"] = {"latDep":latDepart,"lngDep":lngDepart,"latArr":latArrivee,"lngArr":lngArrivee,
                 "nameDepart":nameDep,"nameArrivee":nameArr}
         return redirect('demande')
 
-    return render(request,"matching/choice_trajet.html")
+    return render(request,"matching/choice_trajet.html",{"user":user})
 
     
 

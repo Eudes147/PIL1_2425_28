@@ -57,14 +57,15 @@
             <h1 class="text-3xl font-bold text-[#1E8449] text-center mb-8">Vos correspondances de covoiturage</h1>
             <p class="text-gray-700 text-lg text-center mb-6">Voici les trajets qui correspondent le mieux à votre recherche :</p>
 
-            <div id="results-list" class="space-y-6">
+            <form action="{% url 'results' passenger.user.name %}" method="get">
+                <div id="results-list" class="space-y-6">
                 <!-- Exemple de carte de résultat (pour un conducteur proposant un trajet) -->
                 <div class="bg-gray-50 p-4 rounded-lg shadow-md flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
                     <div class="flex-shrink-0">
                         <img src="https://placehold.co/80x80/cccccc/ffffff?text=User" alt="Photo de profil" class="rounded-full w-20 h-20 object-cover border-2 border-[#1E8449]">
                     </div>
                     <div class="flex-grow text-center md:text-left">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-1">Trajet (Passager)----<span class="text-sm font-normal text-gray-500">(Conducteur)</span></h2>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-1">Trajet {{ passenger. }} ----<span class="text-sm font-normal text-gray-500">(Conducteur)</span></h2>
                         <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-[#1E8449] mr-2"></i>De: (Lieu de départ) à (Lieu d'arrivée)</p>
                         <p class="text-gray-600 mb-2"><i class="far fa-clock text-[#1E8449] mr-2"></i>Heure de départ: (Heure de départ)</p>
                         <p class="text-gray-600"><i class="fas fa-car text-[#1E8449] mr-2"></i>Places disponibles: (places)</p>
@@ -96,6 +97,7 @@
                     <p>Essayez d'ajuster vos critères de recherche ou de revenir plus tard.</p>
                 </div>
             </div>
+            </form>
         </div>
     </main>
 

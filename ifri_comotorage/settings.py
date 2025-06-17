@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from decouple import config
 
-API_KEY = config('5b3ce3597851110001cf6248b20c2f5ad01a4c0786c13a0ee5145939')
+API_KEY = config('API_KEY')
 
 from pathlib import Path
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'ifri_comotorage.wsgi.application'
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'ifri_comotorage2',
+       'NAME': 'ifricomotorage',
         'USER': 'root',
-        'PASSWORD': '1_Br1ng_The_Pa1n_L1ke',
+        'PASSWORD': '',
         'HOST':'localhost',
         'PORT':'3306',
     }
