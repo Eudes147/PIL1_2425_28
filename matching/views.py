@@ -35,7 +35,7 @@ def matchingPas_Drv(request,passenger_name):
     return render(request,"matching/affichage_des_resultats.html",context={"driverOffre":None,"passengerDemande":demande})
 
 def createOffre(request,driver_name):
-    driver = Offre.objects.get(passenger__user__nom = driver_name)
+    driver = Profil.objects.get(user__nom=driver_name)
     positionDriver = request.session.get('positionDriver')
     if request.method =="POST":
         pointDepart = request.POST.get("point_depart_demande")
@@ -43,13 +43,9 @@ def createOffre(request,driver_name):
         departTime = request.POST.get("heure_depart_souhaitee")
         places = request.POST.get("places_disponibles")
 
-        offre = Offre(driver=driver,
-                                         departlat=positionDriver.get("latDep"),
-                                         departlng=positionDriver.get("lngDep"),
-                                         arriveelat=positionDriver.get("latArr"),
-                                         arriveelng=positionDriver.get("lngArr"),
-                                         departTime=positionDriver.get('departTime'),
-                                         nbPLacesDispo=int(places))
+        offre = Offre.objects.get(driver)
+        offre.departTime = departTime
+        offre.nbPlacesDispo = places
         
         try:
             offre.full_clean()
@@ -60,7 +56,7 @@ def createOffre(request,driver_name):
             offre.save()
 
             request.session["positionDriver"] = {"latDep":positionDriver.get("latDep"),"lngDep":positionDriver.get("lngDep"),"latArr":positionDriver.get("latArr"),"lngArr":positionDriver.get("lngArr"),
-                "nameDepart":positionDriver.get("nameDep"),"nameArrivee":positionDriver.get("nameArr"),"driver":driver}
+                "nameDepart":pointDepart,"nameArrivee":pointArrivee,"driver":driver}
             return redirect("waiting")
 
     return render(request,"matching/créé_une_offre_de_covoiturage.html",{"positionDriver":positionDriver,"driver":driver})
@@ -74,13 +70,9 @@ def createDemande(request,passenger_name):
         pointArrivee = request.POST.get("point_arrivee_demande")
         departTime = request.POST.get("heure_depart_souhaitee")
 
-        demande = Demande(passenger=passenger,
-                                         departlat=positionPassenger.get("latDep"),
-                                         departlng=positionPassenger.get("lngDep"),
-                                         arriveelat=positionPassenger.get("latArr"),
-                                         arriveelng=positionPassenger.get("lngArr"),
-                                         departTime=positionPassenger.get('departTime'))
-        
+        demande = Demande.objects.get(passenger=passenger)
+        demande.departTime = departTime
+
         try:
             demande.full_clean()
         except ValidationError as errors:
@@ -90,7 +82,7 @@ def createDemande(request,passenger_name):
             demande.save()
 
             request.session["positionPassenger"] = {"latDep":positionPassenger.get("latDep"),"lngDep":positionPassenger.get("lngDep"),"latArr":positionPassenger.get("latArr"),"lngArr":positionPassenger.get("lngArr"),
-                "nameDepart":positionPassenger.get("nameDep"),"nameArrivee":positionPassenger.get("nameArr"),"passenger":passenger}
+                "nameDepart":pointDepart,"nameArrivee":pointArrivee,"passenger":passenger}
             return redirect("waiting")
 
 
@@ -139,23 +131,6 @@ def choicePosition(request,user_name):
         return redirect('demande')
 
     return render(request,"matching/choice_trajet.html",{"user":user})
-
-    
-
-
-
-
-
-    
-
-
-def matchingPas_Drv(request,passenger_id):
-    passenger = Demande.objects.get(pk=passenger_id)
-    drivers = find_nearDrivers(passenger)
-    return render(request,"view_matching_results.html",context={"drivers":drivers,"passenger":passenger})
-
-
-
 
 
 def accueil_secondaire(request):
