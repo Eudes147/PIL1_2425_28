@@ -1,6 +1,6 @@
 import math
 
-from models import Offre
+from .models import Offre
 
 def haversine(latPas,longPas,latDrv,longDrv):
     rayonEarth = 6371
