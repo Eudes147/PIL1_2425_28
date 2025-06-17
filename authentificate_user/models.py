@@ -18,13 +18,15 @@ class Utilisateur(AbstractUser):
 
 class Profil(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    nom= models.CharField(max_length=100, )
+    prénom= models.CharField(max_length=100, )
     photo = models.ImageField(upload_to='photos/', blank=True, null=True)
-    depart_lat = models.FloatField(blank=True, null=True)
-    depart_lng = models.FloatField(blank=True, null=True)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude  = models.FloatField(blank=True, null=True)
     heure_depart = models.TimeField(blank=True, null=True)
     heure_arrivee = models.TimeField(blank=True, null=True)
     conducteur = models.BooleanField(default=False)
     marque = models.CharField(max_length=100, blank=True)
-    modele = models.CharField(max_length=100, blank=True)
+    model = models.CharField(max_length=100, blank=True)
     places = models.PositiveIntegerField(blank=True, null=True)
 
