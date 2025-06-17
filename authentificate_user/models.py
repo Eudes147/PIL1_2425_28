@@ -18,7 +18,7 @@ class Utilisateur(AbstractUser):
 
 class Profil(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    nom= models.CharField(max_length=100, )
+    nom= models.CharField(max_length=100,)
     prénom= models.CharField(max_length=100, )
     photo = models.ImageField(upload_to='photos/', blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
