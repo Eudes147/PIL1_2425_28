@@ -1,8 +1,9 @@
 from django.shortcuts import render
-
-# Create your views here.
 from .models import Demande
 from .matching import find_nearDrivers 
+
+
+
 def matchingPas_Drv(request,passenger_id):
     passenger = Demande.objects.get(pk=passenger_id)
     drivers = find_nearDrivers(passenger)
@@ -11,5 +12,6 @@ def matchingPas_Drv(request,passenger_id):
 
 
 
+
 def accueil_secondaire(request):
-    return render(request, "accueil_secondaire.html")
+    return render(request, "matching/page_accueil_secondaire.html")

@@ -26,3 +26,10 @@ class MessageListCreateAPIViews(generics.ListCreateAPIView):
         return queryset
     def perform_create(self, serializer):
         serializer.save(sender = self.request.user)
+        
+        
+        
+
+
+def chat_view(request):
+    return render(request, 'chat/chat.html')

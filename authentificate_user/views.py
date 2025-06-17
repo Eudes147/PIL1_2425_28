@@ -33,12 +33,12 @@ def connexion(request):
                 login(request, user)
                 return redirect('accueil_secondaire') 
    
-            else:
-                message = "Nom d'utilisateur ou mot de passe incorrect.."
+        else:
+            message = "Nom d'utilisateur ou mot de passe incorrect.."
     else:
         form = ConnexionForm()
-        message = "Formulaire invalide "
-    return render(request, 'connexion.html', {'form': form, 'message': message})
+        message =""
+        return render(request, 'connexion.html', {'form': form, 'message': message})
 
 
 def accueil(request):

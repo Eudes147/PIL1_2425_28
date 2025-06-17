@@ -44,17 +44,16 @@
             <label class="block text-sm font-medium">Mot de passe</label>
             <input type="password" class="w-full border border-gray-300 rounded px-3 py-2 mt-1" placeholder="****" required />
             </div>
-         <form method="post" action="{% url 'accueil_secondaire' %}">
-           {% csrf_token %}
-           
+        </form>
+        <form method="post" action="{% url 'accueil_secondaire' %}">
+             {% csrf_token %}
            <button type="submit" class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800">
-            Se connecter
+              Se connecter
            </button>
-         </form>
-         {% if message %}
-          <p style="color:red;">{{ message }}</p>
-         {% endif %}
-         </form>
+            {% if message %}
+            <p style="color:red;">{{ message }}</p>
+            {% endif %}
+        </form>
        
 
             <p class="text-sm text-center mt-4">

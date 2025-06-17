@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -10,13 +11,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Chargement de Font Awesome pour les icônes (par exemple, icône voiture, horloge, utilisateur) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../static/affichage_des_resultats.css">
+    <link rel="stylesheet" href="{% static 'matching/affichage_des_résultats.css' %}">
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
     <!-- En-tête (Header) -->
     <header class="bg-[#1E8449] text-white p-4 flex justify-between items-center shadow-md relative z-30">
         <div class="flex items-center text-2xl font-bold z-40">
-    <img src="../static/logo_ifri_comotorage.jpg" alt="Logo IFRI-Comotorage" class="mr-2" width="50" height="50">
+    <img src="{% static '/matching/logo_ifri_comotorage.jpg' %}" alt="Logo IFRI-Comotorage" class="mr-2" width="50" height="50">
     <span>IFRI-Comotorage</span>
 </div>
 
@@ -43,10 +44,10 @@
             md:h-auto md:w-auto md:bg-transparent           /* Sur desktop: hauteur/largeur auto, fond transparent */
             md:translate-x-0 md:z-auto                      /* Sur desktop: pas de translation, z-index auto */
         ">
-            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">À propos</a>
-            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Contact</a>
-            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Mon Profil</a>
-            <a href="#" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Message</a>
+            <a href="{%url 'about' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">À propos</a>
+            <a href="{%url 'contact' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Contact</a>
+            <a href="{%url 'profil' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Mon Profil</a>
+            <a href="{%url 'chat' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Message</a>
         </nav>
     </header>
 
@@ -63,10 +64,10 @@
                         <img src="https://placehold.co/80x80/cccccc/ffffff?text=User" alt="Photo de profil" class="rounded-full w-20 h-20 object-cover border-2 border-[#1E8449]">
                     </div>
                     <div class="flex-grow text-center md:text-left">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-1">Trajet avec John Doe <span class="text-sm font-normal text-gray-500">(Conducteur)</span></h2>
-                        <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-[#1E8449] mr-2"></i>De: Campus IFRI à Akpakpa, Cotonou</p>
-                        <p class="text-gray-600 mb-2"><i class="far fa-clock text-[#1E8449] mr-2"></i>Heure de départ: 08:30</p>
-                        <p class="text-gray-600"><i class="fas fa-car text-[#1E8449] mr-2"></i>Places disponibles: 2</p>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-1">Trajet (Passager)----<span class="text-sm font-normal text-gray-500">(Conducteur)</span></h2>
+                        <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-[#1E8449] mr-2"></i>De: (Lieu de départ) à (Lieu d'arrivée)</p>
+                        <p class="text-gray-600 mb-2"><i class="far fa-clock text-[#1E8449] mr-2"></i>Heure de départ: (Heure de départ)</p>
+                        <p class="text-gray-600"><i class="fas fa-car text-[#1E8449] mr-2"></i>Places disponibles: (places)</p>
                     </div>
                     <div class="flex-shrink-0 mt-4 md:mt-0">
                         <button class="btn-primary py-2 px-6 text-base rounded-md">Contacter</button>
@@ -104,6 +105,6 @@
     </footer>
 
     <!-- Le lien vers votre fichier JavaScript sera ajouté ici -->
-    <script src="../static/affichage_des_résultats.js"></script>
+    <script src="{static 'matching/affichage_des_résultats.js'}"></script>
 </body>
 </html>

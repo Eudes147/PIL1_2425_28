@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,17 +9,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chargement de la police Inter (ressource externe) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../static/créer_une_offre_de_covoiturage.css">
+    <link rel="stylesheet" href="{% static 'matching/créer_une_offre_de_covoiturage.css' %}">
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
     <!-- En-tête (Header) -->
     <header class="bg-[#1E8449] text-white p-4 flex justify-between items-center shadow-md relative z-30">
       <div class="flex items-center text-2xl font-bold z-40">
-    <img src="../static/logo_ifri_comotorage.jpg" alt="Logo IFRI-Comotorage" class="mr-2" width="50" height="50">
+    <img src="{% static 'matching/logo_ifri_comotorage.jpg' %}" alt="Logo IFRI-Comotorage" class="mr-2" width="50" height="50">
     <span>IFRI-Comotorage</span>
 </div>
-
-
         <!-- Bouton du menu burger (visible sur mobile, caché sur desktop) -->
         <button id="hamburger-button" class="md:hidden z-50 focus:outline-none">
             <div class="hamburger-icon">
@@ -58,7 +57,8 @@
         <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl max-w-lg mx-auto">
             <h1 class="text-3xl font-bold text-[#1E8449] text-center mb-8">Publier une offre de covoiturage</h1>
 
-            <form id="offer-form" action="#" method="POST" class="space-y-6">
+            <form id="offer-form" action="{% url 'offre' %}" method="POST" class="space-y-6">
+                {% csrf_token %}
                 <div>
                     <label for="point-depart" class="block text-gray-700 text-lg font-medium mb-2">Point de départ :</label>
                     <input type="text" id="point-depart" name="point_depart" placeholder="Ex: Campus IFRI" required
@@ -70,12 +70,12 @@
                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E8449] focus:border-transparent text-gray-800">
                 </div>
                 <div>
-                    <label for="heure-depart" class="block text-gray-700 text-lg font-medium mb-2">Heure de départ :</label>
+                    <label for="heure-depart" class="block text-gray-700 text-lg font-medium mb-2">Heure de départ : ()</label>
                     <input type="time" id="heure-depart" name="heure_depart" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E8449] focus:border-transparent text-gray-800">
                 </div>
                 <div>
-                    <label for="places-disponibles" class="block text-gray-700 text-lg font-medium mb-2">Nombre de places disponibles :</label>
+                    <label for="places-disponibles" class="block text-gray-700 text-lg font-medium mb-2">Nombre de places disponibles : (places)</label>
                     <input type="number" id="places-disponibles" name="places_disponibles" min="1" max="6" value="1" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E8449] focus:border-transparent text-gray-800">
                 </div>
@@ -95,6 +95,6 @@
     </footer>
 
     <!-- Le lien vers votre fichier JavaScript -->
-    <script src="../static/créer_une_offre_de_covoiturage.js"></script>
+    <script src="{% static 'matching/créer_une_offre_de_covoiturage.js' %}"></script>
 </body>
 </html>
