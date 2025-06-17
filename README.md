@@ -88,8 +88,8 @@ Remplissez les différents champs présents pour créer votre profil, puis soume
 ### Accueil secondaire
 Une fois sur la page d'accueil secondaire : Pour
 1. **Accéder aux discussions** : Cliquez sur le lien message au niveau de l'entête de la page d'accueil .
-2. **Faites des demandes de covoiturage** : Cliquez sur le bouton "   " pour accéder au formulaire à remplir pour faire votre demande puis publiez la.
-3. **Faites des offres de covoiturage** : Cliquez sur le bouton " " pour accéder au formulaire à remplir pour faire votre offre puis publiez la.
+2. **Faites des demandes de covoiturage** : Cliquez sur le bouton " Faire une demande de covoiturage  " pour accéder au formulaire à remplir pour faire votre demande puis publiez la.
+3. **Faites des offres de covoiturage** : Cliquez sur le bouton " Faire une offre de covoiturage " pour accéder au formulaire à remplir pour faire votre offre puis publiez la.
 Une fois l'offre ou la demande publiée, vous serez en attente des résultats pendant que l'algorithme de matching tourne en arrière plan.Dès que l'algorithme trouvera une correspondance à l'offre ou à la demande, il vous reverra les informations et contact de votre (ou vos)  correspondant(s) afin que vous puissiez le(s) joindre.
 
 
