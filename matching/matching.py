@@ -1,29 +1,38 @@
-import math
+from django.conf import settings
+from openrouteservice import Client
+from math import radians, sin, cos, sqrt, atan2
 
-from .models import Offre
+# Fonction haversine pour calculer la distance entre deux points GPS
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371  # rayon Terre en km
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    lat1 = radians(lat1)
+    lat2 = radians(lat2)
+    a = sin(dlat / 2)**2 + cos(lat1)*cos(lat2)*sin(dlon / 2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c
 
-def haversine(latPas,longPas,latDrv,longDrv):
-    rayonEarth = 6371
-    phi1, phi2 = math.radians(latPas), math.radians(latDrv)
-    dphi = math.radians(latDrv-latPas)
-    dlambda = math.radians(longDrv-longPas)
-    a = math.sin(dphi/2)**2 + math.cos(phi1)*math.cos(phi2)*math.sin(dlambda/2)**2
-    c = 2*math.atan(math.sqrt(a))
+def est_proche_trajet(route_coords, point_lat, point_lon, rayon_km=2):
+    for coord in route_coords:
+        route_lon, route_lat = coord
+        if haversine(point_lat, point_lon, route_lat, route_lon) <= rayon_km:
+            return True
+    return False
 
-    return rayonEarth * c
+def match_passager_a_conducteur(api_key, conducteur_start, conducteur_end, passager_start, passager_end):
+    client = Client(key=api_key)
 
-def find_nearDrivers(passenger,rayonSearch=15):
-    drivers = Offre.objects.filter(
-        departTime = passenger.departTime
+    route = client.directions(
+        coordinates=[conducteur_start, conducteur_end],
+        profile='driving-motorcycle',
+        format='geojson'
     )
-    results=[]
-    for driver in drivers:
-        distance = haversine(passenger.departlatitude,
-                             passenger.departlongitude,
-                             driver.departlatitude,
-                             driver.departlongitude)
-        if distance <=rayonSearch:
-            results.append((driver,round(distance,2)))
-    
-    results.sort(key=lambda comp: comp[1])
-    return results
+
+    route_coords = route['features'][0]['geometry']['coordinates']
+
+    depart_ok = est_proche_trajet(route_coords, *passager_start)
+    arrivee_ok = est_proche_trajet(route_coords, *passager_end)
+
+    return depart_ok and arrivee_ok
+

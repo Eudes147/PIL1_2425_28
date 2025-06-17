@@ -19,8 +19,6 @@
     <img src="{% static 'matching/logo_ifri_comotorage.jpg' %}" alt="Logo IFRI-Comotorage" class="mr-2" width="50" height="50">
     <span>IFRI-Comotorage</span>
 </div>
-
-
         <!-- Bouton du menu burger (visible sur mobile, caché sur desktop) -->
         <button id="hamburger-button" class="md:hidden z-50 focus:outline-none">
             <div class="hamburger-icon">
@@ -63,12 +61,12 @@
             <form id="request-form" action="{% url 'demande' %}" method="POST" class="space-y-6">
                 <div>
                     <label for="point-depart-demande" class="block text-gray-700 text-lg font-medium mb-2">Point de départ :</label>
-                    <input type="text" id="point-depart-demande" name="point_depart_demande" placeholder="Ex: Akpakpa, Cotonou" required
+                    <input type="text" id="point-depart-demande" name="point_depart_demande" value="{{ positionPassenger.nameDepart }}" placeholder="Ex: Akpakpa, Cotonou" readonly required
                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E8449] focus:border-transparent text-gray-800">
                 </div>
                 <div>
                     <label for="point-arrivee-demande" class="block text-gray-700 text-lg font-medium mb-2">Point d'arrivée :</label>
-                    <input type="text" id="point-arrivee-demande" name="point_arrivee_demande" placeholder="Ex: Campus IFRI" required
+                    <input type="text" id="point-arrivee-demande" name="point_arrivee_demande" value="{{ positionPassenger.nameArrivee }}" placeholder="Ex: Campus IFRI" readonly required
                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E8449] focus:border-transparent text-gray-800">
                 </div>
                 <div>
@@ -77,11 +75,14 @@
                            class="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1E8449] focus:border-transparent text-gray-800">
                 </div>
                 <div>
-                    <button type="submit"
+                    <button type="submit" disabled
                             class="btn-primary w-full py-3 text-white font-semibold rounded-md uppercase text-xl">
                         Publier la demande
                     </button>
                 </div>
+            </form>
+            <form action="{% url 'takePosition' %}" method="POST">
+                <button type="submit" class="btn-primary w-full py-3 text-white font-semibold rounded-md uppercase text-xl">Choisir sa position</button>
             </form>
         </div>
     </main>

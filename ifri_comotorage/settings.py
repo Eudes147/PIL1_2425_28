@@ -9,6 +9,9 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+from decouple import config
+
+API_KEY = config('5b3ce3597851110001cf6248b20c2f5ad01a4c0786c13a0ee5145939')
 
 from pathlib import Path
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
