@@ -22,7 +22,8 @@ const bounds = L.latLngBounds(
       radius: 1000,  // 1 km
       color: 'blue',
       fillColor: '#add8e6',
-      fillOpacity: 0.3
+      fillOpacity: 0.3,
+      interactive: false
     }).addTo(map).bindPopup("Campus UAC");
 
     let startMarker = null;

@@ -1,11 +1,17 @@
 from rest_framework import serializers
-from .models import Message
+from .models import Message, Conversation
+
+class ConversationSerializer(serializers.ModelSerializer):
+    participants = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Conversation
+        fields = ['id', 'participants', 'created_at']
 
 class MessageSerializer(serializers.ModelSerializer):
-    sender_username = serializers.CharField(source='sender.username', read_only=True)
-    receiver_username = serializers.CharField(source='receiver.username', read_only=True)
+    sender = serializers.StringRelatedField()
+    receiver = serializers.StringRelatedField()
 
     class Meta:
         model = Message
-        fields = ['id', 'sender', 'sender_username', 'content', 'timestamp', 'is_read']
-        read_only_fields = ['senser', 'timestamp']
+        fields = ['id', 'conversation', 'sender', 'receiver', 'content', 'timestamp']

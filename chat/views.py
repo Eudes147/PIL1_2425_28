@@ -1,35 +1,36 @@
+from rest_framework import generics
 from django.shortcuts import render
-from rest_framework import generics, permissions 
-from rest_framework.response import responses
-from rest_framework.views import APIView
-from .models import Message
-from .serializers import MessageSerializer
-from django.db.models import Q
-from django.contrib.auth.models import User
-# Create your views here.
+from rest_framework.permissions import IsAuthenticated
+from .models import Conversation, Message
+from .serializers import ConversationSerializer, MessageSerializer
 
-class MessageListCreateAPIViews(generics.ListCreateAPIView):
-    serializer_class = MessageSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class ConversationListView(generics.ListAPIView):
+    queryset = Conversation.objects.all()
+    serializer_class = ConversationSerializer
+    permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
-        User = self.request.user
-        targuet_user_id = self.request.query_params.get('user_id')
-        if targuet_user_id :
-            try :
-                targuet_user = User.objects.get(id=targuet_user_id)
-                queryset = Message.objects.filter((Q(sender = User)& Q(receiver = User)) |
-                 (Q(senser = targuet_user)& Q(receiver = User))                                 ).order_by('timestamp')
-            except User.DoesNotExist:
-                queryset = Message.objects.none()
-        else:
-            queryset = Message.objects.filter(Q(senser = User) | Q(receicer = User)).order_by('timestamp')
-        return queryset
+        # Filtrer les conversations pour inclure uniquement celles où l'utilisateur est un participant
+        return Conversation.objects.filter(participants=self.request.user)
+
+class ConversationDetailView(generics.RetrieveAPIView):
+    queryset = Conversation.objects.all()
+    serializer_class = ConversationSerializer
+    permission_classes = [IsAuthenticated]
+
+class MessageCreateView(generics.CreateAPIView):
+    queryset = Message.objects.all()
+    serializer_class = MessageSerializer
+    permission_classes = [IsAuthenticated]
+
     def perform_create(self, serializer):
-        serializer.save(sender = self.request.user)
+        # Associer l'expéditeur au message
+        serializer.save(sender=self.request.user)
         
         
         
-
-
 def chat_view(request):
     return render(request, 'chat/chat.html')
+
+def conversation(request):
+    return render(request, 'chat/conversation.html')    

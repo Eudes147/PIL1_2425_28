@@ -5,7 +5,6 @@ from .forms import ProfilForm, UtilisateurCreationForm
 from .forms import ConnexionForm
 from django.contrib.auth.decorators import login_required
 from .models import Profil
-from authentificate_user.forms import Contact
 from django.core.mail import send_mail
 from django.contrib.auth import login
 
@@ -19,7 +18,7 @@ def inscription(request):
             return redirect('profil')  
     else:
         form = UtilisateurCreationForm()
-    return render(request, 'profil.html', {'form': form})
+    return render(request, 'inscription.html', {'form': form})
 
 def connexion(request):
     if request.method == 'POST':
@@ -31,14 +30,14 @@ def connexion(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('accueil_secondaire') 
+                return redirect('profil')
    
         else:
             message = "Nom d'utilisateur ou mot de passe incorrect.."
     else:
         form = ConnexionForm()
         message =""
-        return render(request, 'connexion.html', {'form': form, 'message': message})
+    return render(request, 'connexion.html', {'form': form, 'message': message})
 
 
 def accueil(request):
@@ -48,36 +47,20 @@ class ConnexionView(LoginView):
     template_name = 'connexion.html'
 
 
-def about(request):
-    return render(request, 'about.html')
-
-def contact(request):
-    if request.method == 'POST':
-        form = Contact(request.POST)
-        if form.is_valid():
-            send_mail(
-                subject=f'Message from {form.cleaned_data["name"] or "anonyme"} via authentificate_user Contact form', 
-                message = form.cleaned_data['message'],
-                from_email=form.cleaned_data['email'],
-                recipient_list=['ifricomotorage@gmail.com'],
-            )
-        return redirect('accueil')
-    else:
-        form = Contact()
-    return render(request, 'contact.html', {'form':form})
-
-
-
-@login_required
+@login_required(login_url='/connexion/')
 def profil_view(request):
-    profil, created = Profil.objects.get_or_create(user=request.user)
+    profil,created = Profil.objects.get_or_create(user=request.user)
     if request.method == 'POST':
         form = ProfilForm(request.POST, request.FILES, instance=profil)
         if form.is_valid():
             profil=form.save()
             profil.user = request.user
             profil.save()
-            return render(request,"matching/page_d'acceuil_secondaire.html",context={})
+            valeur = request.POST.get("conducteur")  # "true" ou "false"
+            profil.conducteur = valeur == "true"
+            profil.save()
+            print(profil.conducteur)
+            return redirect('accueil_secondaire',nameUser=profil.user.username)
     else:
         form = ProfilForm(instance=profil)
     return render(request, 'profil.html', {'form': form, 'profil': profil})

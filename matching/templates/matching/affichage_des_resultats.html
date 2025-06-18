@@ -44,8 +44,6 @@
             md:h-auto md:w-auto md:bg-transparent           /* Sur desktop: hauteur/largeur auto, fond transparent */
             md:translate-x-0 md:z-auto                      /* Sur desktop: pas de translation, z-index auto */
         ">
-            <a href="{%url 'about' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">À propos</a>
-            <a href="{%url 'contact' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Contact</a>
             <a href="{%url 'profil' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Mon Profil</a>
             <a href="{%url 'chat' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Message</a>
         </nav>
@@ -57,46 +55,34 @@
             <h1 class="text-3xl font-bold text-[#1E8449] text-center mb-8">Vos correspondances de covoiturage</h1>
             <p class="text-gray-700 text-lg text-center mb-6">Voici les trajets qui correspondent le mieux à votre recherche :</p>
 
-            <form action="{% url 'results' passenger.user.name %}" method="get">
+            <form action="{% url 'results' passengerDemande.passenger.user.username %}" method="GET">
+                {% if driverOffre %}
                 <div id="results-list" class="space-y-6">
                 <!-- Exemple de carte de résultat (pour un conducteur proposant un trajet) -->
-                <div class="bg-gray-50 p-4 rounded-lg shadow-md flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
-                    <div class="flex-shrink-0">
-                        <img src="https://placehold.co/80x80/cccccc/ffffff?text=User" alt="Photo de profil" class="rounded-full w-20 h-20 object-cover border-2 border-[#1E8449]">
+                    <div class="bg-gray-50 p-4 rounded-lg shadow-md flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+                        <div class="flex-shrink-0">
+                            <img src="https://placehold.co/80x80/cccccc/ffffff?text=User" alt="Photo de profil" class="rounded-full w-20 h-20 object-cover border-2 border-[#1E8449]">
+                        </div>
+                        <div class="flex-grow text-center md:text-left">
+                            <h2 class="text-xl font-semibold text-gray-800 mb-1">Trajet {{ passengerDemande.passenger.user.username }} ---- <span class="text-sm font-normal text-gray-500">{{ driverOffre.driver.user.username }}</span></h2>
+                            <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-[#1E8449] mr-2"></i>De: {{ positionUser.nameDep }} à {{ positionUser.nameArr }}</p>
+                            <p class="text-gray-600 mb-2"><i class="far fa-clock text-[#1E8449] mr-2"></i>Heure de départ: {{ passengerDemande.departTime }}  </p>
+                            <p class="text-gray-600"><i class="fas fa-car text-[#1E8449] mr-2"></i>Places disponibles: {{ driverOffre.nbrPlacesDispo }}  </p>
+                        </div>
+                        <div class="flex-shrink-0 mt-4 md:mt-0">
+                            <a href="{%url 'chat' %}" class="btn-primary py-2 px-6 text-base rounded-md">Contacter</a>
+                        </div>
                     </div>
-                    <div class="flex-grow text-center md:text-left">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-1">Trajet {{ passenger. }} ----<span class="text-sm font-normal text-gray-500">(Conducteur)</span></h2>
-                        <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-[#1E8449] mr-2"></i>De: (Lieu de départ) à (Lieu d'arrivée)</p>
-                        <p class="text-gray-600 mb-2"><i class="far fa-clock text-[#1E8449] mr-2"></i>Heure de départ: (Heure de départ)</p>
-                        <p class="text-gray-600"><i class="fas fa-car text-[#1E8449] mr-2"></i>Places disponibles: (places)</p>
-                    </div>
-                    <div class="flex-shrink-0 mt-4 md:mt-0">
-                        <button class="btn-primary py-2 px-6 text-base rounded-md">Contacter</button>
-                    </div>
-                </div>
 
                 <!-- Autre exemple de carte de résultat (pour un passager cherchant un trajet) -->
-                <div class="bg-gray-50 p-4 rounded-lg shadow-md flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
-                    <div class="flex-shrink-0">
-                        <img src="https://placehold.co/80x80/cccccc/ffffff?text=User" alt="Photo de profil" class="rounded-full w-20 h-20 object-cover border-2 border-[#1E8449]">
-                    </div>
-                    <div class="flex-grow text-center md:text-left">
-                        <h2 class="text-xl font-semibold text-gray-800 mb-1">Demande de Jane Smith <span class="text-sm font-normal text-gray-500">(Passager)</span></h2>
-                        <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-[#1E8449] mr-2"></i>De: Cadjehoun à Campus IFRI</p>
-                        <p class="text-gray-600 mb-2"><i class="far fa-clock text-[#1E8449] mr-2"></i>Heure de départ souhaitée: 09:00</p>
-                        <p class="text-gray-600"><i class="fas fa-user-friends text-[#1E8449] mr-2"></i>Passagers: 1</p>
-                    </div>
-                    <div class="flex-shrink-0 mt-4 md:mt-0">
-                        <button class="btn-primary py-2 px-6 text-base rounded-md">Proposer un trajet</button>
-                    </div>
-                </div>
-
+                {% else %}
                 <!-- Message si aucun résultat (peut être affiché dynamiquement via JS) -->
-                <div id="no-results-message" class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
+                <div id="no-results-message" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
                     <p class="font-bold">Aucune correspondance trouvée pour le moment.</p>
-                    <p>Essayez d'ajuster vos critères de recherche ou de revenir plus tard.</p>
+                    <p>Essayez d'ajuster vos critères de recherche ou de revenir plus tard {{ passengerDemande.passenger.user.username }}.</p>
                 </div>
             </div>
+                {% endif %}
             </form>
         </div>
     </main>

@@ -5,8 +5,8 @@ from .views import *
 urlpatterns = [
     path("matching",matchingPas_Drv,name="matching"),
     path("create_offer",createOffre,name="offre"),
-    path("createDemande",createDemande,name="demande"),
+    path("<str:nameUser>/createDemande",createDemande,name="demande"),
     path("choicePosition",choicePosition,name="takePosition"),
-    path("waiting",waiting,name="waiting"),
-    path("resultMatching",matchingPas_Drv,name="results"),
+    path("<str:nameUser>/resultMatching",matchingPas_Drv,name="results"),
+    path("<str:nameUser>/accueil-secondaire",accueil_secondaire,name="accueil_secondaire")
 ]

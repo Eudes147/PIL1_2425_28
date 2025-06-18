@@ -19,10 +19,10 @@
         </div>
         <div class="flex space-x-4">
             <div class="space-x-2">
-                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='/inscription'">Inscription</button>
+                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='{% url 'inscription'  %}'">Inscription</button>
             </div>
             <div class="space-x-2">
-                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='/accueil'">ACCUEIL</button>
+                <button class="bg-white text-green-700 px-4 py-2 rounded hover:bg-gray-200" onclick="window.location.href='{% url 'accueil'  %}'">ACCUEIL</button>
             </div>
         </div>
   </header>
@@ -32,7 +32,7 @@
         <div class="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
         <h2 class="text-2xl font-bold text-green-700 mb-4 text-center">Connexion</h2>
 
-        <form action="#" method="post" class="space-y-4">
+        <form action="{% url 'connexion' %}" method="post" class="space-y-4">
             {% csrf_token %}
            
             <div>
@@ -44,25 +44,23 @@
             <label class="block text-sm font-medium">Mot de passe</label>
             <input type="password" class="w-full border border-gray-300 rounded px-3 py-2 mt-1" placeholder="****" required />
             </div>
-        </form>
-        <form method="post" action="{% url 'accueil_secondaire' %}">
-             {% csrf_token %}
-           <button type="submit" class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800">
+            <button type="submit" class="w-full bg-green-700 text-white py-2 rounded hover:bg-green-800">
               Se connecter
            </button>
-            {% if message %}
+           {% if message %}
             <p style="color:red;">{{ message }}</p>
             {% endif %}
         </form>
+            
        
 
             <p class="text-sm text-center mt-4">
                 Mot de passe oublié ?
-                <a href='{% url 'password_reset' %}' class="text-green-700 hover:underline">Réinitialiser</a>
+                <a href="{% url 'password_reset' %}" class="text-green-700 hover:underline">Réinitialiser</a>
 
         <p class="text-sm text-center mt-4">
             Pas encore de compte ?
-            <a href='{% url 'inscription' %}' class="text-green-700 hover:underline">Inscrivez-vous</a>
+            <a href="{% url 'inscription' %}" class="text-green-700 hover:underline">Inscrivez-vous</a>
         </p>
         </div>
     </main>
@@ -71,9 +69,7 @@
     <footer class="bt-green-700 text-white text-center text-sm p-3">
         <p>2025 IFRI-COMOTORAGE - Tous droits réservés</p>
         <div class="mt-1">
-            <a href="/about" class="underline mx-1">À propos</a> |
-            <a href="/contacts" class="underline mx-1">Contacts</a> |
-            <a href="#" class="underline mx-1">Mentions légales</a>
+            <a href="{% url 'accueil' %}" class="underline mx-1">Mentions légales</a>
         </div>
     </footer>
 

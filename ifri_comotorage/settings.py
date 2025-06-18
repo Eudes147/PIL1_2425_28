@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from decouple import config
+ASGI_APPLICATION = 'ifri_comotorage.asgi.application'
 
 API_KEY = config('API_KEY')
 
@@ -18,6 +19,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+WEBSOCKET_URL = '/ws/'
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -42,10 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'authentificate_user',
+    'channels',
     'chat',
     'matching',
-    
-    
 ]
 
 MIDDLEWARE = [
@@ -86,7 +88,7 @@ DATABASES = {
        'ENGINE': 'django.db.backends.mysql',
        'NAME': 'ifricomotorage',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'Hamelinparis-2007',
         'HOST':'localhost',
         'PORT':'3306',
     }

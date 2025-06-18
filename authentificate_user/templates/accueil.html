@@ -20,10 +20,8 @@
             </div>
             
             <nav class="hidden md:flex space-x-6 font-semibold">
-                <a href="/about" class="hover:underline">À propos</a>
-                <a href="/contact" class="hover:underline">Contact</a>
-                <a href="/inscription" class="hover:underline">Inscription</a>
-                <a href="/connexion" class="hover:underline">Connexion</a>
+                <a href="{%url 'inscription' %}" class="hover:underline">Inscription</a>
+                <a href="{%url 'connexion' %}" class="hover:underline">Connexion</a>
             </nav>
 
             <button class="md:hidden focus:outline-none" onclick="toggleMenu()">
@@ -35,10 +33,8 @@
         </div>
 
         <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
-            <a href="/about" class="block py-2 border-b border-white">À propos</a>
-            <a href="/contact" class="block py-2 border-b border-white">Contact</a>
-            <a href="/inscription" class="block py-2 border-b border-white">Inscription</a>
-            <a href="/connexion" class="block py-2">Connexion</a>
+            <a href="{% url 'inscription' %}" class="block py-2 border-b border-white">Inscription</a>
+            <a href="{% url 'connexion' %}" class="block py-2">Connexion</a>
         </div>
     </header>
 
@@ -60,7 +56,7 @@
                 <p class="mt-4 text-sm md:text-2xl text-green-800 w-full font-[poppins] font-semibold tracking-wide leading-relaxed">
                     Ensemble, réduisons les coûts, faisons un geste pour la planète 🌍 et créons une communauté solidaire.
                 </p>
-                <a  href="/inscription" class="mt-6 inline-block bg-green-700 text-white px-6 py-3 rounded-lg shadow hover:bg-green-800 transition text-center" onclick="window.location.href='{% url 'inscription' %}'" >
+                <a  class="mt-6 inline-block bg-green-700 text-white px-6 py-3 rounded-lg shadow hover:bg-green-800 transition text-center" onclick="" href="{% url 'inscription' %}" >
                     S'INSCRIRE MAINTENANT
                 </a>
             </div>
@@ -71,9 +67,7 @@
     <div class="container mx-auto text-center">
       <p class="text-sm">&copy; 2025 Étudiants Covoiturage. Tous droits réservés.</p>
       <div class="mt-2">
-        <a href="/about" class="underline mx-2">À propos</a>
-        <a href="/contact" class="underline mx-2">Contact</a>
-        <a href="mentions-legales.html" class="underline mx-2">Mentions légales</a>
+        <a href="{% url 'accueil' %}" class="underline mx-2">Mentions légales</a>
       </div>
     </div>
   </footer>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="5;url={% url 'results' passenger.user.nom %}">
+    <meta http-equiv="refresh" content="5;url={% url 'results' profil.user.username %}?infos={{ positionUser }}">
     <title>Recherche de correspondances - IFRI-Comotorage</title>
     <!-- Chargement de Tailwind CSS via CDN (ressource externe) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,7 +13,7 @@
     <!-- Chargement de Font Awesome pour l'icône de chargement -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Lien vers votre fichier CSS personnalisé (à créer séparément) -->
-    <link rel="stylesheet" href="{% static 'matching/page_d'attente_du_matching.css' %}">
+    <link rel="stylesheet" href="{% static 'matching/page_d_attente_du_matching.css' %}">
 
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -46,8 +46,6 @@
             md:h-auto md:w-auto md:bg-transparent           /* Sur desktop: hauteur/largeur auto, fond transparent */
             md:translate-x-0 md:z-auto                      /* Sur desktop: pas de translation, z-index auto */
         ">
-            <a href="{%url 'about' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">À propos</a>
-            <a href="{%url 'contact' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Contact</a>
             <a href="{%url 'profil' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Mon Profil</a>
             <a href="{%url 'chat' %}" class="text-white text-xl md:text-base mx-3 py-4 md:py-0 hover:underline">Message</a>
         </nav>
@@ -64,7 +62,7 @@
                 <i class="fas fa-spinner fa-spin text-5xl text-[#1E8449] mb-4"></i>
                 <p>Recherche de correspondances en cours...</p>
             </div>
-            <p class="text-gray-600 text-lg">Veuillez patienter quelques instants pendant que nous trouvons le comotorage idéal pour vous.</p>
+            <p class="text-gray-600 text-lg">Veuillez patienter quelques instants {{ profil.user.username }}  pendant que nous trouvons le comotorage idéal pour vous.</p>
         </div>
     </main>
 
@@ -74,6 +72,6 @@
     </footer>
 
     <!-- Le lien vers votre fichier JavaScript sera ajouté ici (à créer séparément) -->
-    <script src="{% static 'matching/page_d'attente_du_matching.js' %}"></script>
+    <script src="{% static 'matching/page_d_attente_du_matching.js' %}"></script>
 </body>
 </html>

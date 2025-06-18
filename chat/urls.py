@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import MessageListCreateAPIViews
-from.views import chat_view
+from . import views
 
 urlpatterns = [
-    path('messages/', MessageListCreateAPIViews.as_view(), name='message-list-create'),
-    path('', chat_view, name='chat'),
-
+    path('conversations/', views.ConversationListView.as_view(), name='conversation_list'),
+    path('conversations/<int:pk>/', views.ConversationDetailView.as_view(), name='conversation_detail'),
+    path('messages/', views.MessageCreateView.as_view(), name='message_create'),
+    path('chat', views.chat_view, name='chat'), 
+    path('conversation', views.conversation, name='conversation'),
 ]

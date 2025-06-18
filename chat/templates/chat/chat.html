@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messagerie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-green-700 text-white p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold">Messagerie</h1>
+    </header>
+
+    <!-- Conversations -->
+    <main class="flex-grow p-4">
+        <div id="conversation-list" class="bg-white shadow rounded p-4">
+            <h2 class="text-lg font-bold mb-4">Vos Conversations</h2>
+            <ul>
+                {% for conversation in conversations %}
+                <li class="border-b py-2">
+                    <a href="/chat/{{ conversation.id }}/" class="text-green-700 hover:underline">
+                        Conversation avec {{ conversation.participants|join:", " }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{% url 'conversation' %}">Nouvelle Conversation</a>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-700 text-white text-center p-3">
+        IFRI-COMOTORAGE Messagerie
+    </footer>
+
+</body>
+</html>
